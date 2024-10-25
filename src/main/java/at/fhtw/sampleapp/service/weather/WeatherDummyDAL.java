@@ -1,18 +1,19 @@
 package at.fhtw.sampleapp.service.weather;
 
+import at.fhtw.sampleapp.dal.User;
 import at.fhtw.sampleapp.model.Weather;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherDummyDAL {
-    private List<Weather> weatherData;
+public class UserDummyDAL {
+    private List<User> userData;
 
     public WeatherDummyDAL() {
-        weatherData = new ArrayList<>();
-        weatherData.add(new Weather(1,"Europe","Vienna", 9.f));
-        weatherData.add(new Weather(2,"Europe","Berlin", 8.f));
-        weatherData.add(new Weather(3,"Asia","Tokyo", 12.f));
+        UserData = new ArrayList<>();
+        userData.add(new Weather(1,"Europe","Vienna", 9.f));
+        userData.add(new Weather(2,"Europe","Berlin", 8.f));
+        userData.add(new Weather(3,"Asia","Tokyo", 12.f));
     }
 
     // GET /weather/:id
