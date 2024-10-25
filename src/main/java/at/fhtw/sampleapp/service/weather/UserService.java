@@ -7,23 +7,23 @@ import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
 import at.fhtw.httpserver.server.Service;
 
-public class WeatherService implements Service {
-    private final WeatherController weatherController;
+public class UserService implements Service {
+    private final UserController userController;
 
-    public WeatherService() {
-        this.weatherController = new WeatherController();
+    public UserService() {
+        this.userController = new UserController();
     }
 
     @Override
     public Response handleRequest(Request request) {
         if (request.getMethod() == Method.GET &&
             request.getPathParts().size() > 1) {
-            return this.weatherController.getWeather(request.getPathParts().get(1));
+            return this.userController.getUser(request.getPathParts().get(1));
         } else if (request.getMethod() == Method.GET) {
-            return this.weatherController.getWeatherPerRepository();
+            return this.userController.getUsers();
             //return this.weatherController.getWeatherPerRepository();
         } else if (request.getMethod() == Method.POST) {
-            return this.weatherController.addWeather(request);
+            return this.userController.addUser(request);
         }
 
         return new Response(

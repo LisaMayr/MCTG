@@ -1,30 +1,67 @@
 package at.fhtw.sampleapp.dal;
 
-import javax.smartcardio.Card;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAlias;
 
 public class User {
+    @JsonAlias({"Username"})
     private String username;
+    @JsonAlias({"lastname"})
     private String lastname;
+    @JsonAlias({"firstname"})
     private String firstname;
+    @JsonAlias({"email"})
     private String email;
+    @JsonAlias({"Password"})
     private String password;
-    private Integer elo;
-    private Integer coins;
-    private List<Card> cards;
 
+    // Jackson needs the default constructor
+    public User() {}
 
-    public User(String username, String lastname, String firstname, String email, String password, Integer elo, Integer coins, List<Card> cards) {
+    public User(String username, String firstname, String lastname, String email, String password) {
         this.username = username;
-        this.lastname = lastname;
         this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
-        this.elo = elo;
-        this.coins = coins;
-        this.cards = cards;
     }
 
-    public User() {
+    public String getUsername() {
+        return username;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 }

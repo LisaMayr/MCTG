@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "MCTG",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
