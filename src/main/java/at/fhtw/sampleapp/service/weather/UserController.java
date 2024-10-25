@@ -11,19 +11,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.List;
 
 public class UserController extends Controller {
-    private UserDummyDAL userDAL;
 
     public UserController() {
 
         // Nur noch für die Dummy-JUnit-Tests notwendig. Stattdessen ein RepositoryPattern verwenden.
-        this.userDAL = new UserDummyDAL();
     }
 
     // GET /user(:username
     public Response getUser(String username)
     {
         try {
-            User user = this.userDAL.getUser(username);
+            User user = this.getUserDAL().getUser(username);
             // "[ { \"id\": 1, \"city\": \"Vienna\", \"temperature\": 9.0 }, { ... }, { ... } ]"
             String userDataJSON = this.getObjectMapper().writeValueAsString(user);
 
@@ -44,7 +42,7 @@ public class UserController extends Controller {
     // GET /users
     public Response getUsers() {
         try {
-            List userData = this.userDAL.getUsers();
+            List userData = this.getUserDAL().getUsers();
             // "[ { \"id\": 1, \"city\": \"Vienna\", \"temperature\": 9.0 }, { ... }, { ... } ]"
             String userDataJSON = this.getObjectMapper().writeValueAsString(userData);
 
@@ -69,7 +67,9 @@ public class UserController extends Controller {
 
             // request.getBody() => "{ \"id\": 4, \"city\": \"Graz\", ... }
             User user = this.getObjectMapper().readValue(request.getBody(), User.class);
-            this.userDAL.addUser(user);
+            UserDummyDAL userDummyDAL = this.getUserDAL();
+            userDummyDAL.addUser(user);
+            this.setUserDAL(userDummyDAL);
 
             return new Response(
                 HttpStatus.CREATED,
