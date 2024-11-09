@@ -3,8 +3,8 @@ package at.fhtw;
 import at.fhtw.httpserver.server.Server;
 import at.fhtw.httpserver.utils.Router;
 import at.fhtw.sampleapp.service.echo.EchoService;
-import at.fhtw.sampleapp.service.weather.UserService;
-import at.fhtw.sampleapp.service.weather.SessionService;
+import at.fhtw.sampleapp.service.user.UserService;
+import at.fhtw.sampleapp.service.session.SessionService;
 
 import java.io.IOException;
 

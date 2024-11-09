@@ -1,4 +1,4 @@
-package at.fhtw.sampleapp.service.weather;
+package at.fhtw.sampleapp.service.user;
 
 import at.fhtw.httpserver.http.ContentType;
 import at.fhtw.httpserver.http.HttpStatus;

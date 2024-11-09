@@ -1,11 +1,10 @@
-package at.fhtw.sampleapp.service.weather;
+package at.fhtw.sampleapp.service.session;
 
 import at.fhtw.sampleapp.dal.Session;
-import at.fhtw.sampleapp.dal.User;
+import at.fhtw.sampleapp.service.user.UserDummyDAL;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class SessionDummyDAL {
     private List<Session> sessionData;

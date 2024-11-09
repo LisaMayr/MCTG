@@ -1,4 +1,4 @@
-package at.fhtw.sampleapp.service.weather;
+package at.fhtw.sampleapp.service.session;
 
 import at.fhtw.httpserver.http.ContentType;
 import at.fhtw.httpserver.http.HttpStatus;
@@ -7,8 +7,6 @@ import at.fhtw.httpserver.server.Response;
 import at.fhtw.sampleapp.controller.Controller;
 import at.fhtw.sampleapp.dal.Session;
 import com.fasterxml.jackson.core.JsonProcessingException;
-
-import java.util.List;
 
 public class SessionController extends Controller {
 

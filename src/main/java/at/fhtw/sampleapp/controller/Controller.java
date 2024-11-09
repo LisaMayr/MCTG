@@ -1,7 +1,7 @@
 package at.fhtw.sampleapp.controller;
 
-import at.fhtw.sampleapp.service.weather.SessionDummyDAL;
-import at.fhtw.sampleapp.service.weather.UserDummyDAL;
+import at.fhtw.sampleapp.service.session.SessionDummyDAL;
+import at.fhtw.sampleapp.service.user.UserDummyDAL;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Controller {
