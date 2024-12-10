@@ -4,6 +4,7 @@ import at.fhtw.httpserver.server.Server;
 import at.fhtw.httpserver.utils.Router;
 import at.fhtw.sampleapp.service.echo.EchoService;
 import at.fhtw.sampleapp.service.user.UserService;
+import at.fhtw.sampleapp.service.card.CardService;
 import at.fhtw.sampleapp.service.session.SessionService;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class Main {
         router.addService("/users", new UserService());
         router.addService("/sessions", new SessionService());
         router.addService("/echo", new EchoService());
+        router.addService("/package", new CardService());
 
         return router;
     }

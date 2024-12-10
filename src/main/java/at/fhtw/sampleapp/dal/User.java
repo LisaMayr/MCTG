@@ -2,8 +2,11 @@ package at.fhtw.sampleapp.dal;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
+
 public class User {
-    @JsonAlias({"Username"})
+    @JsonAlias({"id"})
+    private String id = null;
+    @JsonAlias({"username"})
     private String username;
     @JsonAlias({"lastname"})
     private String lastname;
@@ -11,13 +14,23 @@ public class User {
     private String firstname;
     @JsonAlias({"email"})
     private String email;
-    @JsonAlias({"Password"})
+    @JsonAlias({"password"})
     private String password;
+
 
     // Jackson needs the default constructor
     public User() {}
 
     public User(String username, String firstname, String lastname, String email, String password) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String id, String username, String firstname, String lastname, String email, String password) {
+        this.id = id;
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
