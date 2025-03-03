@@ -1,11 +1,5 @@
 package at.fhtw.sampleapp.dal;
 
-enum ElementType {
-    WATER,
-    FIRE,
-    NORMAL
-}
-
 public class SpellCard extends Card {
 
     private final ElementType elementType;

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 public class User {
     @JsonAlias({"id"})
     private String id = null;
-    @JsonAlias({"username"})
+    @JsonAlias({"Username"})
     private String username;
     @JsonAlias({"lastname"})
     private String lastname;
@@ -14,15 +14,15 @@ public class User {
     private String firstname;
     @JsonAlias({"email"})
     private String email;
-    @JsonAlias({"password"})
+    @JsonAlias({"Password"})
     private String password;
 
 
     // Jackson needs the default constructor
     public User() {}
 
-    public User(String username, String firstname, String lastname, String email, String password) {
-        this.username = username;
+    public User(String Username, String firstname, String lastname, String email, String password) {
+        this.username = Username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;

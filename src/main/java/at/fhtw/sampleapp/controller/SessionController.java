@@ -1,10 +1,9 @@
-package at.fhtw.sampleapp.service.session;
+package at.fhtw.sampleapp.controller;
 
 import at.fhtw.httpserver.http.ContentType;
 import at.fhtw.httpserver.http.HttpStatus;
 import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
-import at.fhtw.sampleapp.controller.Controller;
 import at.fhtw.sampleapp.dal.Session;
 import com.fasterxml.jackson.core.JsonProcessingException;
 

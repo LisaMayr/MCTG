@@ -6,6 +6,7 @@ import at.fhtw.httpserver.http.Method;
 import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
 import at.fhtw.httpserver.server.Service;
+import at.fhtw.sampleapp.controller.CardController;
 
 public class CardService implements Service {
     private final CardController cardController;
@@ -18,7 +19,7 @@ public class CardService implements Service {
     public Response handleRequest(Request request) {
         if (request.getMethod() == Method.GET) {
             return this.cardController.getCardPackage();
-            // return this.weatherController.getWeatherPerRepository();
+            // return this.cardController.getCardPerRepository();
         } else if (request.getMethod() == Method.POST) {
             // TODO: check if admin
             return this.cardController.addCardPackage(request);

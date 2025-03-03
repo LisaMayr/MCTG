@@ -1,11 +1,11 @@
-package at.fhtw.sampleapp.service.user;
+package at.fhtw.sampleapp.controller;
 
 import at.fhtw.httpserver.http.ContentType;
 import at.fhtw.httpserver.http.HttpStatus;
 import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
-import at.fhtw.sampleapp.controller.Controller;
 import at.fhtw.sampleapp.dal.User;
+import at.fhtw.sampleapp.service.user.UserDummyDAL;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
@@ -22,7 +22,6 @@ public class UserController extends Controller {
     {
         try {
             User user = this.getUserDAL().getUser(username);
-            // "[ { \"id\": 1, \"city\": \"Vienna\", \"temperature\": 9.0 }, { ... }, { ... } ]"
             String userDataJSON = this.getObjectMapper().writeValueAsString(user);
 
             return new Response(
@@ -43,7 +42,6 @@ public class UserController extends Controller {
     public Response getUsers() {
         try {
             List userData = this.getUserDAL().getUsers();
-            // "[ { \"id\": 1, \"city\": \"Vienna\", \"temperature\": 9.0 }, { ... }, { ... } ]"
             String userDataJSON = this.getObjectMapper().writeValueAsString(userData);
 
             return new Response(

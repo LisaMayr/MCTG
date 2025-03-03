@@ -1,11 +1,11 @@
-package at.fhtw.sampleapp.service.card;
+package at.fhtw.sampleapp.controller;
 
 import at.fhtw.httpserver.http.ContentType;
 import at.fhtw.httpserver.http.HttpStatus;
 import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
-import at.fhtw.sampleapp.controller.Controller;
 import at.fhtw.sampleapp.dal.Card;
+import at.fhtw.sampleapp.service.card.CardDAL;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -16,6 +16,7 @@ public class CardController extends Controller {
     public CardController() {
 
         // Nur noch für die Dummy-JUnit-Tests notwendig. Stattdessen ein RepositoryPattern verwenden.
+
     }
 
     // GET /cardPackage

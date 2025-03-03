@@ -3,11 +3,6 @@ package at.fhtw.sampleapp.dal;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Getter;
 
-enum CardType {
-    SPELLCARD,
-    MONSTERCARD
-}
-
 public class Card {
     @JsonAlias({"cardId"})
     private int cardId;

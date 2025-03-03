@@ -10,8 +10,5 @@
         <module name="httpserver" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="http-server" target="15" />
-    </bytecodeTargetLevel>
   </component>
 </project>
