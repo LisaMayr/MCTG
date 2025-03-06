@@ -21,23 +21,28 @@ public class Main {
 
         dao = new UserDaoDb();
 
-        User newUser = new User(47,"John Doe", "pw", "mySecret");
+
+        User newUser = new User(107,"JohnDoe", "pw", "mySecret");
+        //dao.delete(newUser);
         System.out.println("User before saving: " + newUser); // Check if token is not null
         dao.save(newUser);
 
-        User user1 = getUser(47);
+        User user1 = getUser(17);
         System.out.println(user1);
 
-        dao.update(user1, new String[]{"1","Max Musterfrau", "pw", "mySecret"});
+        user1.setUsername("franz");
+        user1.setPassword("pw");
+        dao.update(user1);
         System.out.println();
 
-        User user2 = getUser(47);
-        dao.delete(user2);
+        User user2 = getUser(17);
+        //dao.delete(user2);
        // dao.save(new User(7,"Jane Doe", "pw", "mySecret"));
-        User user3 = getUser(7);
-        dao.delete(user3);
+        //User user3 = getUser(1);
+        //dao.delete(user3);
 
         //dao.getAll().forEach(System.out::println);
+
 
 
         Server server = new Server(10001, configureRouter());

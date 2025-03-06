@@ -20,8 +20,8 @@ VALUES
 
 
 CREATE TABLE session (
-                        id serial PRIMARY KEY,
-                        userid NUMERIC NOT NULL,
-                        token VARCHAR ( 255 ) NOT NULL ,
-                        last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    id serial PRIMARY KEY,
+    userid NUMERIC NOT NULL,
+    token VARCHAR ( 255 ) NOT NULL ,
+    last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

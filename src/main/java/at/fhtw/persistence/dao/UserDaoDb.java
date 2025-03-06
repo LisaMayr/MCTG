@@ -13,7 +13,7 @@ public class UserDaoDb implements Dao<User> {
 
     @Override
     public Optional<User> get(int id) {
-        try ( PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
+        try (PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
                 SELECT id, username, password, token 
                 FROM "user" 
                 WHERE id=?
@@ -21,13 +21,37 @@ public class UserDaoDb implements Dao<User> {
         ) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next() ) {
+            if (resultSet.next()) {
                 return Optional.of(new User(
                         resultSet.getInt(1),
-                        resultSet.getString( 2 ),
-                        resultSet.getString( 3 ),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
                         resultSet.getString(4)
-                ) );
+                ));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    public Optional<User> getByName(String username) {
+        try (PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
+                SELECT id, username, password, token 
+                FROM "user" 
+                WHERE username=?
+                """)
+        ) {
+            statement.setString(1, username);
+            System.out.println(statement);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return Optional.of(new User(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4)
+                ));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -38,19 +62,19 @@ public class UserDaoDb implements Dao<User> {
     @Override
     public Collection<User> getAll() {
         ArrayList<User> result = new ArrayList<>();
-        try ( PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
+        try (PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
                 SELECT id, username, password, token 
                 FROM "user" 
                 """)
         ) {
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 result.add(new User(
                         resultSet.getInt(1),
                         resultSet.getString(2),
-                        resultSet.getString(3 ),
+                        resultSet.getString(3),
                         resultSet.getString(4)
-                ) );
+                ));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -60,28 +84,11 @@ public class UserDaoDb implements Dao<User> {
 
     @Override
     public void save(User user) {
-        try ( PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
-                INSERT INTO "user"
-                (id, username, password, token) 
-                VALUES (?, ?, ?, ?);
-                """ )
-        ) {
-            statement.setInt(1, user.getId() );
-            statement.setString(2, user.getUsername());
-            statement.setString(3, user.getPassword());
-            statement.setString(4, user.getToken());
-            statement.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public void saveUser(User user) {
-        try ( PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
+        try (PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
                 INSERT INTO "user"
                 (username, password, token) 
                 VALUES (?, ?, ?);
-                """ )
+                """)
         ) {
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
@@ -93,15 +100,12 @@ public class UserDaoDb implements Dao<User> {
     }
 
     @Override
-    public void update(User user, String[] params) {
-        // update the item
-        user.setId(Integer.parseInt(Objects.requireNonNull( params[0], "ObjectId cannot be null" )));
-        user.setUsername(Objects.requireNonNull(params[1], "Username cannot be null"));
-        user.setPassword(Objects.requireNonNull(params[2], "Password cannot be null"));
-        // persist the updated item
-        try ( PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
+    public void update(User user) {
+        // ToDo: update more fields
+        try (PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
                 UPDATE "user" 
-                SET username = ?, password = ?
+                SET username = COALESCE(?, username),   
+                    password = COALESCE(?, password)
                 WHERE id = ?;
                 """)
         ) {
@@ -116,16 +120,22 @@ public class UserDaoDb implements Dao<User> {
 
     @Override
     public void delete(User user) {
-        try ( PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
+        try (PreparedStatement statement = DbConnection.getInstance().prepareStatement("""
                 DELETE FROM "user" 
                 WHERE id = ?;
                 """)
         ) {
-            statement.setInt( 1, user.getId() );
-            statement.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
+            statement.setInt(1, user.getId());
+            int rowsAffected = statement.executeUpdate(); // Use executeUpdate() for DELETE
 
+            if (rowsAffected == 0) {
+                System.err.println("No user found with ID: " + user.getId());
+            } else {
+                System.out.println("User with ID " + user.getId() + " deleted successfully.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
