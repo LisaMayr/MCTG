@@ -20,7 +20,7 @@ public class SessionController extends Controller {
 
             // request.getBody() => "{ \"id\": 4, \"city\": \"Graz\", ... }
             Session session = this.getObjectMapper().readValue(request.getBody(), Session.class);
-            this.getSessionDAL().addSession(this.getUserDAL(), session);
+            //this.getSessionDAL().addSession(this.getUserDaoDb(), session);
 
             return new Response(
                 HttpStatus.CREATED,

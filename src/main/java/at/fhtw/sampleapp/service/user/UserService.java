@@ -14,7 +14,7 @@ public class UserService implements Service {
     public UserService() {
         this.userController = new UserController();
     }
-
+    //ToDo: add getheader for authentication request.getHeaderMap().getHeader(("Authorization"))
     @Override
     public Response handleRequest(Request request) {
         if (request.getMethod() == Method.GET &&
@@ -22,7 +22,6 @@ public class UserService implements Service {
             return this.userController.getUser(request.getPathParts().get(1));
         } else if (request.getMethod() == Method.GET) {
             return this.userController.getUsers();
-            //return this.weatherController.getWeatherPerRepository();
         } else if (request.getMethod() == Method.POST) {
             return this.userController.addUser(request);
         }

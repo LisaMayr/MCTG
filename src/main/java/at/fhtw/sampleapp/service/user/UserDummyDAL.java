@@ -11,9 +11,7 @@ public class UserDummyDAL {
 
     public UserDummyDAL() {
         userData = new ArrayList<>();
-        userData.add(new User("firstuser", "Max", "Mustermann", "max@gmail.com", "1234Passwort"));
-        userData.add(new User("seconduser", "Maxima", "Musterfrau", "maxima@gmail.com", "Passwort123"));
-        userData.add(new User("thirduser", "Bob", "Bobbington", "bobb@gmail.com", "12345678"));
+        userData.add(new User(10, "tenthuser", "abcdef", "tokenlibl"));
     }
 
     // GET /user/:username

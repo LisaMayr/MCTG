@@ -2,56 +2,53 @@ package at.fhtw.sampleapp.dal;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
+import java.io.Serializable;
 
-public class User {
+
+public class User implements Serializable {
     @JsonAlias({"id"})
-    private String id = null;
+    private Integer id = null;
     @JsonAlias({"Username"})
     private String username;
-    @JsonAlias({"lastname"})
-    private String lastname;
-    @JsonAlias({"firstname"})
-    private String firstname;
-    @JsonAlias({"email"})
-    private String email;
     @JsonAlias({"Password"})
     private String password;
+    @JsonAlias({"Token"})
+    private String token;
 
 
     // Jackson needs the default constructor
     public User() {}
 
-    public User(String Username, String firstname, String lastname, String email, String password) {
+    //is for serializing dataobject into db
+    public User(String Username, String password) {
         this.username = Username;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
         this.password = password;
     }
 
-    public User(String id, String username, String firstname, String lastname, String email, String password) {
+   /* public User(Integer id, String Username, String password) {
         this.id = id;
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
+        this.username = Username;
         this.password = password;
+    }*/
+
+    public User(Integer id, String Username, String password, String token) {
+        this.id = id;
+        this.username = Username;
+        this.password = password;
+        this.token = token;
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {
         return username;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public String getPassword() {
@@ -66,15 +63,20 @@ public class User {
         this.password = password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getToken() {
+        return token;
+    }
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", token='" + token + '\'' +
+                '}';
     }
 }

@@ -4,24 +4,25 @@ import at.fhtw.httpserver.http.ContentType;
 import at.fhtw.httpserver.http.HttpStatus;
 import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
+import at.fhtw.persistence.dao.UserDaoDb;
 import at.fhtw.sampleapp.dal.User;
-import at.fhtw.sampleapp.service.user.UserDummyDAL;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import java.util.Collections;
 import java.util.List;
-
+//only is accessed by curlscript
 public class UserController extends Controller {
 
     public UserController() {
 
-        // Nur noch für die Dummy-JUnit-Tests notwendig. Stattdessen ein RepositoryPattern verwenden.
     }
 
     // GET /user(:username
     public Response getUser(String username)
     {
-        try {
-            User user = this.getUserDAL().getUser(username);
+        try {//ToDo: create method in UserDaoDb to get user by username insert here
+            //User user = this.getUserDaoDb().getUser(username);
+            User user = new User();
             String userDataJSON = this.getObjectMapper().writeValueAsString(user);
 
             return new Response(
@@ -40,8 +41,8 @@ public class UserController extends Controller {
     }
     // GET /users
     public Response getUsers() {
-        try {
-            List userData = this.getUserDAL().getUsers();
+        try {//ToDo: insert method from UserDaoDb to get Alluseres
+            List userData = Collections.singletonList(this.getUserDaoDb().getAll());
             String userDataJSON = this.getObjectMapper().writeValueAsString(userData);
 
             return new Response(
@@ -63,11 +64,10 @@ public class UserController extends Controller {
     public Response addUser(Request request) {
         try {
 
-            // request.getBody() => "{ \"id\": 4, \"city\": \"Graz\", ... }
+            // request.getBody() => "{ \"id\": 4, ... }
             User user = this.getObjectMapper().readValue(request.getBody(), User.class);
-            UserDummyDAL userDummyDAL = this.getUserDAL();
-            userDummyDAL.addUser(user);
-            this.setUserDAL(userDummyDAL);
+            UserDaoDb userDaoDb = this.getUserDaoDb();
+            userDaoDb.saveUser(user);
 
             return new Response(
                 HttpStatus.CREATED,
