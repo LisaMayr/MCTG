@@ -3,42 +3,47 @@ package at.fhtw.sampleapp.dal;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 public class Session {
-    @JsonAlias({"Username"})
-    private String username;
-    @JsonAlias({"Password"})
-    private String password;
+    @JsonAlias({"id"})
+    private int id;
+    @JsonAlias({"userid"})
+    private int userid;
+    @JsonAlias({"token"})
     private String token;
 
-    public Session() {
-        this.token = "mctgToken";
+    // Jackson needs the default constructor
+    public Session() {}
+
+    public Session(int id, int userid, String token) {
+        this.id = id;
+        this.userid = userid;
+        this.token = token;
     }
 
-    public String getUsername() {
-        return username;
+    public Session(int userid, String token) {
+        this.userid = userid;
+        this.token = token;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public int getId() {
+        return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public int getUserid() {
+        return userid;
+    }
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
-        this.token = this.username + token;
-    }
-
-    public Session(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.token = "mtcgToken";
-    }
-
-    public String getPassword() {
-        return password;
+        this.token = token;
     }
 }
-

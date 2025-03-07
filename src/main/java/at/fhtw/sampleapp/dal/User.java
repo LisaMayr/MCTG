@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     @JsonAlias({"id"})
-    private Integer id = null;
+    private Integer id;
     @JsonAlias({"Username"})
     private String username;
     @JsonAlias({"Password"})

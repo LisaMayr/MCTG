@@ -22,7 +22,7 @@ public class Main {
         dao = new UserDaoDb();
 
 
-        User newUser = new User(107,"JohnDoe", "pw", "mySecret");
+      /*  User newUser = new User(107,"JohnDoe", "pw", "mySecret");
         //dao.delete(newUser);
         System.out.println("User before saving: " + newUser); // Check if token is not null
         dao.save(newUser);
@@ -42,6 +42,8 @@ public class Main {
         //dao.delete(user3);
 
         //dao.getAll().forEach(System.out::println);
+
+       */
 
 
 

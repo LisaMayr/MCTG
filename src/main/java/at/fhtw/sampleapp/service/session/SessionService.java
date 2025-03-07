@@ -17,11 +17,12 @@ public class SessionService implements Service {
 
     @Override
     public Response handleRequest(Request request) {
-
+        // Handle session creation (POST)
         if (request.getMethod() == Method.POST) {
             return this.sessionController.addSession(request);
         }
 
+        // Return bad request for unsupported methods
         return new Response(
                 HttpStatus.BAD_REQUEST,
                 ContentType.JSON,
