@@ -1,4 +1,4 @@
-package at.fhtw.sampleapp.service.user;
+package at.fhtw.sampleapp.service;
 
 import at.fhtw.httpserver.http.ContentType;
 import at.fhtw.httpserver.http.HttpStatus;
@@ -14,7 +14,7 @@ public class UserService implements Service {
     public UserService() {
         this.userController = new UserController();
     }
-    //ToDo: add getheader for authentication request.getHeaderMap().getHeader(("Authorization"))
+    //
     @Override
     public Response handleRequest(Request request) {
         if (request.getMethod() == Method.GET &&

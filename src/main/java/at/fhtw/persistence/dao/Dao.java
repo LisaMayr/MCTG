@@ -16,8 +16,10 @@ public interface Dao<T> {
 
     Collection<T> getAll();
 
+
     // CREATE
     void save(T t);
+    //void saveWithId(T t);
 
     // UPDATE
     void update(T t);

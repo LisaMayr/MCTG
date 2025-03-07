@@ -83,12 +83,39 @@ public class DbConnection implements Closeable {
         }
     }
 
-
-
-
     public static DbConnection getInstance() {
         if(instance==null)
             instance = new DbConnection();
         return instance;
+    }
+
+    public void setAutoCommit(boolean b) {
+        if( connection!=null ) {
+            try {
+                this.connection.setAutoCommit(b);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+    public void rollback() {
+        if( connection!=null ) {
+            try {
+                this.connection.rollback();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+    public void commit() {
+        if( connection!=null ) {
+            try {
+                this.connection.commit();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 }

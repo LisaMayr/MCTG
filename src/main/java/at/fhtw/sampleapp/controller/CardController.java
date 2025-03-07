@@ -5,27 +5,52 @@ import at.fhtw.httpserver.http.HttpStatus;
 import at.fhtw.httpserver.server.Request;
 import at.fhtw.httpserver.server.Response;
 import at.fhtw.sampleapp.dal.Card;
-import at.fhtw.sampleapp.service.card.CardDAL;
+import at.fhtw.persistence.dao.CardDaoDb;
+import at.fhtw.sampleapp.dal.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class CardController extends Controller {
+    private final CardDaoDb cardDaoDb;
 
     public CardController() {
-
+        this.cardDaoDb = new CardDaoDb();
         // Nur noch für die Dummy-JUnit-Tests notwendig. Stattdessen ein RepositoryPattern verwenden.
 
     }
 
-    // GET /cardPackage
-    public Response getCardPackage()
+    // GET /card(:name
+    public Response getCard(String username)
     {
         try {
-            List<Card> cardPackage = this.getCardDAL().getCardPackage();
-            // "[ { \"id\": 1, \"city\": \"Vienna\", \"temperature\": 9.0 }, { ... }, { ... } ]"
-            String cardDataJSON = this.getObjectMapper().writeValueAsString(cardPackage);
+            Optional<Card> card = this.getCardDaoDb().getByCardName(username);
+            String userDataJSON = this.getObjectMapper().writeValueAsString(card.get());
+
+            return new Response(
+                    HttpStatus.OK,
+                    ContentType.JSON,
+                    userDataJSON
+            );
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ContentType.JSON,
+                    "{ \"message\" : \"Internal Server Error\" }"
+            );
+        }
+    }
+
+    // GET /cards
+    public Response getCards()
+    {
+        try {
+            List<Card> cardData = this.cardDaoDb.getAll();
+            String cardDataJSON = this.getObjectMapper().writeValueAsString(cardData);
 
             return new Response(
                     HttpStatus.OK,
@@ -42,35 +67,39 @@ public class CardController extends Controller {
         }
     }
 
-    // POST /cardPackage
-    public Response addCardPackage(Request request) {
+    // POST /card
+    public Response addCard(Request request) {
         try {
-            // request.getBody() => "{ \"id\": 4, \"city\": \"Graz\", ... }
-            List <Card> cardPackage = this.getObjectMapper().readValue(request.getBody(), new TypeReference<>(){});
-            CardDAL cardDAL = this.getCardDAL();
-            cardDAL.addCardPackage(cardPackage);
+            List<Card> cardData = this.cardDaoDb.getAll();
+
+            Card card = this.getObjectMapper().readValue(request.getBody(), Card.class);
+
+            if (cardData.contains(card)) {
+                throw new IllegalArgumentException("Card already exists");
+            }
+
+            this.cardDaoDb.save(card);
+
 
             return new Response(
-                HttpStatus.CREATED,
-                ContentType.JSON,
-                "{ \"message\": \"Success\" }"
+                    HttpStatus.CREATED,
+                    ContentType.JSON,
+                    "{ \"message\": \"Success\" }"
             );
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
             return new Response(
                     HttpStatus.CONFLICT,
                     ContentType.JSON,
-                    "{ \"message\" : \""+e.getMessage()+"\" }"
+                    "{ \"message\": \"" + e.getMessage() + "\" }"
             );
         }
 
         return new Response(
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            ContentType.JSON,
-            "{ \"message\" : \"Internal Server Error\" }"
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                ContentType.JSON,
+                "{ \"message\" : \"Internal Server Error\" }"
         );
-
     }
 }

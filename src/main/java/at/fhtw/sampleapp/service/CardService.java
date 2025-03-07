@@ -1,4 +1,4 @@
-package at.fhtw.sampleapp.service.card;
+package at.fhtw.sampleapp.service;
 
 import at.fhtw.httpserver.http.ContentType;
 import at.fhtw.httpserver.http.HttpStatus;
@@ -17,12 +17,13 @@ public class CardService implements Service {
 
     @Override
     public Response handleRequest(Request request) {
-        if (request.getMethod() == Method.GET) {
-            return this.cardController.getCardPackage();
-            // return this.cardController.getCardPerRepository();
+        if (request.getMethod() == Method.GET &&
+            request.getPathParts().size() > 1) {
+            return this.cardController.getCard(request.getPathParts().get(1));
+        } else if (request.getMethod() == Method.GET) {
+            return this.cardController.getCards();
         } else if (request.getMethod() == Method.POST) {
-            // TODO: check if admin
-            return this.cardController.addCardPackage(request);
+            return this.cardController.addCard(request);
         }
 
         return new Response(

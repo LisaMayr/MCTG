@@ -46,7 +46,7 @@ public class UserController extends Controller {
     }
     // GET /users
     public Response getUsers() {
-        try {//ToDo: insert method from UserDaoDb to get Alluseres
+        try {
             List userData = Collections.singletonList(this.getUserDaoDb().getAll());
             String userDataJSON = this.getObjectMapper().writeValueAsString(userData);
 

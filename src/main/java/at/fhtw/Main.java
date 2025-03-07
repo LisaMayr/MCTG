@@ -5,10 +5,10 @@ import at.fhtw.httpserver.utils.Router;
 import at.fhtw.persistence.dao.Dao;
 import at.fhtw.persistence.dao.UserDaoDb;
 import at.fhtw.sampleapp.dal.User;
-import at.fhtw.sampleapp.service.echo.EchoService;
-import at.fhtw.sampleapp.service.user.UserService;
-import at.fhtw.sampleapp.service.card.CardService;
-import at.fhtw.sampleapp.service.session.SessionService;
+import at.fhtw.sampleapp.service.EchoService;
+import at.fhtw.sampleapp.service.UserService;
+import at.fhtw.sampleapp.service.CardService;
+import at.fhtw.sampleapp.service.SessionService;
 
 import java.io.IOException;
 import java.util.Optional;
